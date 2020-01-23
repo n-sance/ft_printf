@@ -16,7 +16,7 @@ void    buffcpy(char *res, t_printf* p, int size)
     i = 0;
     while(i < size)
     {
-        if (p->i_buff >= BUFF_SIZE)
+        if (p->i_buff >= BUFF_SIZE_P)
             print_buff(p);
         p->buff[p->i_buff] = res[i];
         i++;
@@ -33,7 +33,7 @@ void    print_arg(char *res, t_printf* p)
     }
     while (p->i_res >= 0)
     {
-        if (p->i_buff >= BUFF_SIZE)
+        if (p->i_buff >= BUFF_SIZE_P)
             print_buff(p);
         p->buff[p->i_buff] = res[p->i_res];
         p->i_buff++;
@@ -66,7 +66,7 @@ void    sharp_res(char *res, t_printf* p)
     {
         p->i_res++;
         res[p->i_res] = '0';
-    }     
+    }
 }
 
 void    zero_space_print(int quantity, char s, t_printf* p)
@@ -80,8 +80,8 @@ void    zero_space_print(int quantity, char s, t_printf* p)
                 quantity -= 2;
     while (i < quantity)
     {
-        if (p->i_buff >= BUFF_SIZE)
-            print_buff(p);   
+        if (p->i_buff >= BUFF_SIZE_P)
+            print_buff(p);
         p->buff[p->i_buff] = s;
         p->i_buff++;
         i++;
@@ -138,12 +138,12 @@ void    width_align_print(char *res, t_printf* p)
         }
     }
     else
-        plus_minus_print(res, p); 
+        plus_minus_print(res, p);
     print_arg(res, p);
 }
 
 void    plus_minus_print(char *res, t_printf* p)
-{  
+{
     if (p->zero == 1)
     {
         if (res[p->i_res] == '-')
@@ -198,7 +198,7 @@ void    ptr_preprint(char *res, t_printf* p)
 }
 
 void    preprint(char *res, t_printf* p)
-{ 
+{
     if (p->spike_p)
         return;
     if (p->spike_w)
@@ -296,7 +296,7 @@ void    itoa_lu(t_printf* p, unsigned long lu, char *res)
         p->i_res += 1;
 	}
     p->i_res -= 1;
-    preprint(res, p);    
+    preprint(res, p);
 }
 
 void    cast_signed(t_printf* p)
@@ -328,7 +328,7 @@ void    cast_unsigned(t_printf* p)
 }
 
 void    cast_arg(t_printf* p)
-{  
+{
     if (p->unsign == 0 && p->base == 10)
         cast_signed(p);
     else
@@ -341,7 +341,7 @@ void    diouxXfF(t_printf* p)
     unsigned long ul;
 
     res = (char *)malloc(sizeof(char) * 50);
-    if (p->mod[0] == 'l' && (p->unsign == 1 || p->base != 10)) 
+    if (p->mod[0] == 'l' && (p->unsign == 1 || p->base != 10))
     {
         if (!(ul = va_arg(p->ap, unsigned long)))
             exception(p, res);
@@ -351,7 +351,7 @@ void    diouxXfF(t_printf* p)
     }
     p->arg = va_arg(p->ap, long long int);
     cast_arg(p);
-    if (p->arg == 0 || p->arg == -2147483648 || 
+    if (p->arg == 0 || p->arg == -2147483648 ||
     p->arg - 1 == 9223372036854775807)
     {
         exception(p, res);
@@ -379,9 +379,9 @@ void    Xf(t_printf* p)
 
 void    second_percent(t_printf* p)
 {
-    if (p->i_buff >= BUFF_SIZE)
+    if (p->i_buff >= BUFF_SIZE_P)
     {
-        
+
     }
     if (p->minus)
     {
@@ -409,7 +409,7 @@ void    print_to_percent(t_printf* p)
 {
     while (p->format[p->i] != '%' && p->format[p->i] != '\0')
     {
-        if (p->i_buff >= BUFF_SIZE)
+        if (p->i_buff >= BUFF_SIZE_P)
             print_buff(p);
         p->buff[p->i_buff] = p->format[p->i];
         p->i_buff++;
@@ -458,7 +458,7 @@ void    width_f(t_printf* p)
 }
 
 void     check_unsigned(t_printf* p)
-{   
+{
     if (p->format[p->i] == 'u')
         p->unsign = 1;
     p->base = 10;
@@ -479,7 +479,7 @@ void     long_f(t_printf* p)
 
 void    unknownspec(t_printf* p)
 {
-    if (p->i_buff >= BUFF_SIZE)
+    if (p->i_buff >= BUFF_SIZE_P)
         print_buff(p);
     p->buff[p->i_buff] = p->format[p->i];
     p->i_buff++;
@@ -507,8 +507,8 @@ void     short_f(t_printf* p)
     if (p->format[p->i + 1] == 'h')
     {
         p->mod[0] = 'h';
-        p->mod[1] = 'h'; 
-        p->i++;       
+        p->mod[1] = 'h';
+        p->i++;
     }
     else
         p->mod[0] = 'h';
@@ -530,7 +530,7 @@ void    point_f(t_printf* p)
         write(1, "inf", 3);
         p->spike_p = 1;
     }
-    
+
 }
 
 void    space_flag_print(char *res, t_printf* p)
@@ -546,7 +546,7 @@ void    space_flag_print(char *res, t_printf* p)
 
 void    space_f(t_printf* p)
 {
-    p->space_f = 1;    
+    p->space_f = 1;
 }
 
 void    spec_flags_two(function_point_array fpa[256])
@@ -571,7 +571,7 @@ void    spec_flags_two(function_point_array fpa[256])
 void    str_f(t_printf* p)
 {
     char *res;
-    
+
     p->string_f = 1;
     res = va_arg(p->ap, char *);
     if (res == NULL)
@@ -636,7 +636,7 @@ void    spec_flags(function_point_array fpa[256])
 	fpa['f'] = float_handler;
 	fpa['F'] = float_handler;
 	fpa['p'] = ptr_f;
-    fpa['h'] = short_f; 
+    fpa['h'] = short_f;
     fpa['l'] = long_f;
     fpa['L'] = capital_long_f;
     spec_flags_two(fpa);
@@ -669,7 +669,7 @@ void    put_zero2(t_printf *p)
 }
 
 void    put_zero(t_printf *p)
-{					
+{
 	p->base = 0;
 	p->lcase = 0;
 	p->mod[0] = 0;

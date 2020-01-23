@@ -4,11 +4,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "./libft/libft.h"
+//#include "./libft/libft.h"
 
 
 
-//#define BUFF_SIZE 2048
+#define BUFF_SIZE_F 2048
 #define LEN 99
 typedef union s_float_to_string_representation
 {
@@ -29,7 +29,7 @@ typedef struct	s_ld_epf
 
 typedef struct s_printf
 {
- char   buff[BUFF_SIZE];   //output buffer string
+ char   buff[BUFF_SIZE_F];   //output buffer string
  int    i_buff;
  int    s;       //count of output symbols
  int    i;       //format index

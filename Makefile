@@ -1,6 +1,16 @@
-NAME =	libftprintf.a
+NAME =		libftprintf.a
+LIBFT_A =	libft.a
 
-SRCS = 	ft_printf.c \
+COMP =		gcc -Wall -Werror -Wextra $(PRINTF_H) $(LIBFT_H) -c -o
+
+PRINTF_H =	-I includes/
+LIBFT_H = 	-I libft/includes
+
+OBJ_DIR =	obj/
+SRC_DIR =	srcs/
+LIB_DIR =	libft/
+
+CFILE = ft_printf.c \
 		parser.c \
 		ft_strcpy.c \
 		ft_strjoin.c \
@@ -15,37 +25,46 @@ SRCS = 	ft_printf.c \
 		float2.c \
 		float_round.c \
 
+CFIND =		$(CFILE:%=$(SRC_DIR)%)
 
-OBJS = 	ft_printf.o \
-		parser.o \
-		ft_strcpy.o \
-		ft_strjoin.o \
-		ft_strlen.o \
-		ft_isdigit.o \
-		epf.o \
-		float_calculations.o\
-		float_conversions.o \
-		float_get.o \
-		float_strings.o \
-		float.o \
-		float2.o \
-		float_round.o \
+OFILE =		$(CFILE:%.c=%.o)
 
-HEADER = ft_printf.h float_header.h
+OBJ =		$(addprefix $(OBJ_DIR), $(OFILE))
 
-FLAGS = -Wall -Wextra -Werror
+all: $(OBJ_DIR) $(NAME)
 
-all: $(NAME)
+$(OBJ_DIR):
+		@mkdir -p $(OBJ_DIR)
+		@echo Create: ft_printf Object directory
 
-$(NAME):
-	gcc -c $(SRCS) $(HEADER) $(FLAGS)
-	$(AR) -rcs $(NAME) $(OBJS) $?
+$(NAME): $(OBJ)
+		@echo LIBFT START
+		@make -C $(LIB_DIR)
+		@echo Copying $(LIBFT_A) to root.
+		@cp $(LIB_DIR)$(LIBFT_A) .
+		@mv $(LIBFT_A) $(NAME)
+		@ar rc $(NAME) $(addprefix $(OBJ_DIR), $(OFILE))
+		@ranlib $(NAME)
+		@echo Merged: $(NAME) with $(LIBFT_A)
+		@echo FT_PRINTF COMPLETE
+
+$(OBJ): $(CFIND)
+		@$(MAKE) $(OFILE)
+
+$(OFILE):
+		@echo Create: $(@:obj/%=%)
+		@$(COMP) $(OBJ_DIR)$@ $(SRC_DIR)$(@:%.o=%.c)
 
 clean:
-	rm -f $(OBJS)
+		@/bin/rm -rf $(OBJ_DIR)
+		@make -C $(LIB_DIR) clean
+		@echo Cleaned ft_printf object files
 
-fclean:
-	rm -f $(NAME)
-	rm -f $(OBJS)
+fclean: clean
+		@/bin/rm -f $(NAME)
+		@make -C $(LIB_DIR) fclean
+		@echo Cleaned $(NAME)
 
 re: fclean all
+
+.PHONY: all clean flcean re

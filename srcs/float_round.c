@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "libft.h"
 
 int		get_dot_pos(char *str)
 {
