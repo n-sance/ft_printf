@@ -123,8 +123,8 @@ void	float_handler(t_printf *p)
 		value = va_arg(p->ap, double);
         //value = 876.12345;
 	//выставляем значение точности из структуры
-	if(p->prec)
-		precise = p->prec_f;
+	if(p->prec_f)
+		precise = p->prec;
     if (value < 0)
     {
         sign = 1;
