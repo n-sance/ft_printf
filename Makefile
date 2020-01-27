@@ -1,7 +1,7 @@
 NAME =		libftprintf.a
 LIBFT_A =	libft.a
 
-COMP =		gcc -Wall -Werror -Wextra $(PRINTF_H) $(LIBFT_H) -c -o
+COMP =		gcc -g -Wall -Werror -Wextra $(PRINTF_H) $(LIBFT_H) -c -o
 
 PRINTF_H =	-I includes/
 LIBFT_H = 	-I libft/includes
