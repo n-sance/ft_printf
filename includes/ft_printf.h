@@ -9,6 +9,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../libft/includes/libft.h"
 //#include "./libft/libft.h"
 
 //# define BUFF_SIZE_P 1000

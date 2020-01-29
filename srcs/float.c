@@ -88,23 +88,23 @@ void	return_function(char *s, t_printf *p)
 {
 	int		i;
 	char *res;
-
 	i = 0;
-	while (s[i] != '\0')
-		i++;
-	res = (char *)malloc(sizeof(char) * i);
-	while (--i >= 0)
-	{
-		res[p->i_res] = s[i];
-		p->i_res++;
-	}
-	p->i_res--;
-	if (res[p->i_res] == 'n')
-		p->nan_f = 1;
-	if (res[p->i_res] == 'i' || res[p->i_res - 1] == 'i')
-		p->inf_f = 1;
+	res = 0;
+		while (s[i] != '\0')
+			i++;
+		res = (char *)malloc(sizeof(char) * i);
+		while (--i >= 0)
+		{
+			res[p->i_res] = s[i];
+			p->i_res++;
+		}
+		p->i_res--;
+		if (res[p->i_res] == 'n')
+			p->nan_f = 1;
+		if (res[p->i_res] == 'i' || res[p->i_res - 1] == 'i')
+			p->inf_f = 1;
+		free(s);
 	preprint(res, p);
-	free(s);
 }
 
 //главня функция
@@ -114,24 +114,38 @@ void	float_handler(t_printf *p)
 	long double value; //число которое переводим
 	int precise; //точность
     int sign = 0;
+	ret = 0;
     precise = 6;
 	//если есть L то ждем переменную long double, если нет то double
 	if (p->length_capital_l)
 		value = va_arg(p->ap, long double);
-        //value = 876.12345;
 	else
 		value = va_arg(p->ap, double);
-        //value = 876.12345;
-	//выставляем значение точности из структуры
-	if(p->prec_f)
-		precise = p->prec;
-    if (value < 0)
-    {
-        sign = 1;
-        value *= -1;
-    }
-	ret = ft_ftoa(value, precise, sign);
-	return_function(ret, p);
+	if (value != value)
+		ret = ft_strdup("nan");
+	else
+	{
+		if(p->prec_f)
+			precise = p->prec;
+		if (value < 0)
+		{
+			sign = 1;
+			value *= -1;
+		}
+		if (value == (1.0 /0.0))
+			{
+			p->inf_f = 1;
+			if (sign)
+				ret = ft_strdup("-inf");
+			else
+				ret = ft_strdup("inf");
+			}
+		else
+			ret = ft_ftoa(value, precise, sign);
+	}
+		return_function(ret, p);
+		p->spec_found = 1;
 }
+
 
 
