@@ -1,5 +1,4 @@
 #include "ft_printf.h"
-#include "libft.h"
 
 char	*concat_parts(char *integer_part, char *fract_part, char sign)
 {

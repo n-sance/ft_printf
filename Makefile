@@ -10,20 +10,27 @@ OBJ_DIR =	obj/
 SRC_DIR =	srcs/
 LIB_DIR =	libft/
 
-CFILE = ft_printf.c \
-		parser.c \
-		ft_strcpy.c \
-		ft_strjoin.c \
-		ft_strlen.c \
-		ft_isdigit.c \
-		float_calculations.c\
-		epf.c \
-		float_conversions.c \
-		float_get.c \
-		float_strings.c \
-		float.c \
-		float2.c \
-		float_round.c \
+CFILE = ft_printf.c 					\
+		cast.c 							\
+		buffer_print.c 					\
+		dioux.c 						\
+		flags_sp_s_o_p_cl.c 			\
+		flags_unk_c_h_sh_po.c 			\
+		flags_unk_c_h_sh_po.c 			\
+		flags_x_u_i_l.c                 \
+		plus_minus_zero_space_sharp.c 	\
+		preparation.c 					\
+		preprint_processing.c 			\
+		width_prec.c 					\
+		parser.c 						\
+		float_calculations.c			\
+		epf.c 							\
+		float_conversions.c 			\
+		float_get.c 					\
+		float_strings.c 				\
+		float.c 						\
+		float2.c 						\
+		float_round.c 					\
 
 CFIND =		$(CFILE:%=$(SRC_DIR)%)
 
