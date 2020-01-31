@@ -48,7 +48,7 @@ typedef struct		s_printf
 	int				inf_f;
 }					t_printf;
 
-//////////////////////////////////////////////////////           PARSER           //////////////////////////////////////////////////////          																	
+//////////////////////////////////////////////////////           PARSER           //////////////////////////////////////////////////////
 
 typedef void		(*t_function_point_array)(t_printf*);
 
@@ -162,7 +162,7 @@ char	*push_back(char *res, char c);
 int		ft_pow(int n, int pow);
 char	*float_round_wrapper(char *str, int precision);
 char	*float_round_prec_0(char *str);
-
+void			check_point(char **s, t_printf *p);
 
 
 #endif

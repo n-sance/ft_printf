@@ -59,7 +59,18 @@ void	float_to_bits(char *bytes, char *bits)
 	i = 0;
 }
 
+void			check_point(char **s, t_printf *p)
+{
+	char		*tmp;
 
+	if (p->sharp == 1 && p->prec == 0 && **s != 'n' && **s != 'i'
+		&& *(*s + 1) != 'i')
+	{
+		tmp = *s;
+		*s = ft_strjoin(tmp, ".");
+		free(tmp);
+	}
+}
 
 //конвертирует из long double в строку
 // n - переводимое число
@@ -90,6 +101,7 @@ void	return_function(char *s, t_printf *p)
 	char *res;
 	i = 0;
 	res = 0;
+	check_point(&s, p);
 		while (s[i] != '\0')
 			i++;
 		res = (char *)malloc(sizeof(char) * i);
