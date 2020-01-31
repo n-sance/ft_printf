@@ -137,8 +137,8 @@ void	float_handler(t_printf *p)
 		ret = ft_strdup("nan");
 	else
 	{
-		if(p->prec_f)
-			precise = p->prec;
+		if(!p->prec_f)
+			p->prec = precise;
 		if (value < 0)
 		{
 			sign = 1;
