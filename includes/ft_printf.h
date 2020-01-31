@@ -132,7 +132,7 @@ typedef struct	s_ld_epf
 }				t_ld_epf;
 
 void 	float_handler(t_printf *p);
-char *ft_ftoa(long double value, int afterpoint, int sign);
+char *ft_ftoa(long double value, int afterpoint);
 char *bits_to_str_of_num(int sign, char *bits);
 void	bits_to_epf(char *bits, t_ld_epf *epf);
 char	*epf_to_numstr(t_ld_epf *epf);
@@ -163,6 +163,6 @@ int		ft_pow(int n, int pow);
 char	*float_round_wrapper(char *str, int precision);
 char	*float_round_prec_0(char *str);
 void			check_point(char **s, t_printf *p);
-
+int round_exception(char *str, int precision);
 
 #endif

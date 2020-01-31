@@ -76,15 +76,15 @@ void			check_point(char **s, t_printf *p)
 // n - переводимое число
 // res - строка в которую сохраняем число
 // afterpoint - точность с которой сохраняем знаки после запятой
-char *ft_ftoa(long double value, int afterpoint, int sign)
+char *ft_ftoa(long double value, int afterpoint)
 {
+	int sign = 0;
     char float_in_bits[80];
     t_fl_to_str bytes;
     char bits_in_byte_buffer[8];
     int pos = 1;
     int i = 0;
     bytes.num = value;
-
     while(i < 10)
     {
         byte_to_bits(bytes.str[i], bits_in_byte_buffer);
@@ -92,6 +92,7 @@ char *ft_ftoa(long double value, int afterpoint, int sign)
         i++;
         pos += 8;
     }
+	sign = float_in_bits[0] - '0';
     return(float_round_wrapper(bits_to_str_of_num(sign, float_in_bits), afterpoint));
 }
 
@@ -125,7 +126,6 @@ void	float_handler(t_printf *p)
 	char *ret;
 	long double value; //число которое переводим
 	int precise; //точность
-    int sign = 0;
 	ret = 0;
     precise = 6;
 	//если есть L то ждем переменную long double, если нет то double
@@ -134,26 +134,32 @@ void	float_handler(t_printf *p)
 	else
 		value = va_arg(p->ap, double);
 	if (value != value)
+	{
 		ret = ft_strdup("nan");
+		p->plus_f = 0;
+		p->space_f = 0;
+	}
 	else
 	{
 		if(!p->prec_f)
-			p->prec = precise;
-		if (value < 0)
-		{
-			sign = 1;
-			value *= -1;
-		}
+			p->prec = 6;
+	//	if (value < 0)
+	//	{
+	//		sign = 1;
+	//		value *= -1;
+	//	}
 		if (value == (1.0 /0.0))
 			{
-			p->inf_f = 1;
-			if (sign)
-				ret = ft_strdup("-inf");
-			else
+				p->inf_f = 1;			//check maybe this flag is useless?
 				ret = ft_strdup("inf");
 			}
+		else if (value == (-1.0/0.0))
+			{
+				ret = ft_strdup("-inf");
+				p->inf_f = 1;			//check maybe this flag is useless?
+			}
 		else
-			ret = ft_ftoa(value, precise, sign);
+			ret = ft_ftoa(value, p->prec);
 	}
 		return_function(ret, p);
 		p->spec_found = 1;
