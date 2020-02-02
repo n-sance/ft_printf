@@ -138,6 +138,7 @@ void	float_handler(t_printf *p)
 		ret = ft_strdup("nan");
 		p->plus_f = 0;
 		p->space_f = 0;
+		p->zero = 0;
 	}
 	else
 	{
@@ -151,15 +152,20 @@ void	float_handler(t_printf *p)
 		if (value == (1.0 /0.0))
 			{
 				p->inf_f = 1;			//check maybe this flag is useless?
+				p->zero = 0;
 				ret = ft_strdup("inf");
 			}
 		else if (value == (-1.0/0.0))
 			{
 				ret = ft_strdup("-inf");
+				p->zero = 0;
 				p->inf_f = 1;			//check maybe this flag is useless?
 			}
 		else
+		{
 			ret = ft_ftoa(value, p->prec);
+			p->float_f = 1;
+		}
 	}
 		return_function(ret, p);
 		p->spec_found = 1;

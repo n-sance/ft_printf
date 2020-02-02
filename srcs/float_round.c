@@ -47,7 +47,7 @@ int round_exception(char *str, int precision)
 			return(0);
 	i++;
 	a = i;
-	while(i < a + precision)
+	while(i < a + precision + 1)
 		if (str[i] == '9')
 			i++;
 		else
@@ -55,37 +55,47 @@ int round_exception(char *str, int precision)
 	return(1);
 }
 
-void swap_dot(char *str)
-{
-	int i;
-	i = 0;
-	while(str[i])
-	{
-		if (str[i] == '.' && str[i + 1])
-		{
-			str[i + 1] = '.';
-			str[i] = '9';
-			i++;
-		}
-		i++;
-	}
-}
 char	*float_round(char *str, int precision)
+{
+	int		i;
+	int		carry;
+	int		sum;
+
+	i = get_dot_pos(str) + precision + 1;
+	carry = (str[i] >= '5') ? 1 : 0;
+	while (--i >= 0)
+	{
+		if (str[i] == '.')
+			i--;
+		sum = ((str[i] - '0') + carry);
+		if (sum > 9 && carry)
+		{
+			carry = 1;
+			str[i] = '0';
+		}
+		else
+		{
+			carry = 0;
+			str[i] = sum + '0';
+		}
+	}
+	return (ft_strsub(str, 0, get_dot_pos(str) + precision + 1));
+}
+
+
+/*char	*float_round(char *str, int precision)
 {
 	char	*res;
 	int		i;
 	int		carry;
 
-	i = get_dot_pos(str) + precision + 1 + round_exception(str, precision);
+	i = get_dot_pos(str) + precision + 1;
 	if (!(res = (char *)malloc(i + 1)))
 		return (NULL);
+	if (str[0] == '0')
+		res[0] = '0';
 	carry = (str[i] >= '5') ? 1 : 0;
 	res[i] = '\0';
-	if (round_exception(str, precision))
-	{
-		res[0] = '1';
-		swap_dot(str);
-	}
 	while ((--i) > 0)
 	{
 		if (str[i] == '.')
@@ -103,10 +113,22 @@ char	*float_round(char *str, int precision)
 	}
 	return (res);
 }
+*/
 
 char	*float_round_wrapper(char *str, int precision)
 {
+	char *out;
+	if (round_exception(str, precision))
+	{
+		if (!(out = (char *)malloc(sizeof(char) * ft_strlen(str) + 2)))
+			exit(-1);
+		out = ft_strdup("0");
+		out = ft_strjoin(out, str);
+	}
+	else
+		out = ft_strdup(str);
+	free(str); //скорей всего память не фришится
 	if (precision == 0)
-		return (float_round_prec_0(str));
-	return (float_round(str, precision));
+		return (float_round_prec_0(out));
+	return (float_round(out, precision));
 }
