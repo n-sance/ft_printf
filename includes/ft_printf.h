@@ -164,5 +164,7 @@ char	*float_round_wrapper(char *str, int precision);
 char	*float_round_prec_0(char *str);
 void			check_point(char **s, t_printf *p);
 int round_exception(char *str, int precision);
+void	copy_bits_from_byte(char *bits_from_byte, char *bits, int pos);
+void	byte_to_bits(char byte, char *bits_from_byte);
 
 #endif

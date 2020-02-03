@@ -24,13 +24,15 @@ CFILE = ft_printf.c 					\
 		width_prec.c 					\
 		parser.c 						\
 		float_calculations.c			\
-		epf.c 							\
+		float_epf.c 					\
 		float_conversions.c 			\
 		float_get.c 					\
 		float_strings.c 				\
-		float.c 						\
-		float2.c 						\
+		float_main_handler.c 			\
+		float_main_handler_2.c 			\
 		float_round.c 					\
+		float_strings_2.c				\
+		float_bits_handle.c				\
 
 CFIND =		$(CFILE:%=$(SRC_DIR)%)
 

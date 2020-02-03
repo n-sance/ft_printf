@@ -16,48 +16,6 @@ void reverse(unsigned char* str, int len)
 }
 
 
-void	byte_to_bits(char byte, char *bits_from_byte)
-{
-	int	i;
-
-	i = 7;
-	while (i >= 0)
-	{
-		bits_from_byte[i] = (byte & (1 << i) ? '1' : '0');
-		i--;
-	}
-}
-
-void	copy_bits_from_byte(char *bits_from_byte, char *bits, int pos)
-{
-	int	i;
-
-	i = 0;
-	while (i < 8)
-	{
-		bits[80 - pos - i] = bits_from_byte[i];
-		i++;
-	}
-}
-
-void	float_to_bits(char *bytes, char *bits)
-{
-	char	bits_from_byte[8];
-	int		i;
-	int		pos;
-
-	i = 0;
-	pos = 1;
-	while (i < 10)
-	{
-		byte_to_bits(bytes[i], bits_from_byte);
-		copy_bits_from_byte(bits_from_byte, bits, pos);
-		i++;
-		pos += 8;
-	}
-	copy_bits_from_byte(bits_from_byte, bits, 80);
-	i = 0;
-}
 
 void			check_point(char **s, t_printf *p)
 {
@@ -72,14 +30,11 @@ void			check_point(char **s, t_printf *p)
 	}
 }
 
-//конвертирует из long double в строку
-// n - переводимое число
-// res - строка в которую сохраняем число
-// afterpoint - точность с которой сохраняем знаки после запятой
 char *ft_ftoa(long double value, int afterpoint)
 {
 	int sign = 0;
     char float_in_bits[80];
+	char *out = 0;
     t_fl_to_str bytes;
     char bits_in_byte_buffer[8];
     int pos = 1;
@@ -93,7 +48,8 @@ char *ft_ftoa(long double value, int afterpoint)
         pos += 8;
     }
 	sign = float_in_bits[0] - '0';
-    return(float_round_wrapper(bits_to_str_of_num(sign, float_in_bits), afterpoint));
+	out = float_round_wrapper(bits_to_str_of_num(sign, float_in_bits), afterpoint);
+    return(out);
 }
 
 void	return_function(char *s, t_printf *p)
@@ -118,6 +74,8 @@ void	return_function(char *s, t_printf *p)
 			p->inf_f = 1;
 		free(s);
 	preprint(res, p);
+	//if (res)
+		//free(res);
 }
 
 //главня функция
@@ -144,11 +102,6 @@ void	float_handler(t_printf *p)
 	{
 		if(!p->prec_f)
 			p->prec = 6;
-	//	if (value < 0)
-	//	{
-	//		sign = 1;
-	//		value *= -1;
-	//	}
 		if (value == (1.0 /0.0))
 			{
 				p->inf_f = 1;			//check maybe this flag is useless?
@@ -170,6 +123,3 @@ void	float_handler(t_printf *p)
 		return_function(ret, p);
 		p->spec_found = 1;
 }
-
-
-

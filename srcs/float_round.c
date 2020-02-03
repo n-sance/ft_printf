@@ -82,52 +82,23 @@ char	*float_round(char *str, int precision)
 	return (ft_strsub(str, 0, get_dot_pos(str) + precision + 1));
 }
 
-
-/*char	*float_round(char *str, int precision)
-{
-	char	*res;
-	int		i;
-	int		carry;
-
-	i = get_dot_pos(str) + precision + 1;
-	if (!(res = (char *)malloc(i + 1)))
-		return (NULL);
-	if (str[0] == '0')
-		res[0] = '0';
-	carry = (str[i] >= '5') ? 1 : 0;
-	res[i] = '\0';
-	while ((--i) > 0)
-	{
-		if (str[i] == '.')
-			res[i] = '.';
-		else if ((str[i] == '9') && (carry == 1))
-		{
-			carry = 1;
-			res[i] = '0';
-		}
-		else
-		{
-			res[i] = str[i] + carry;
-			carry = 0;
-		}
-	}
-	return (res);
-}
-*/
-
 char	*float_round_wrapper(char *str, int precision)
 {
 	char *out;
+	out = 0;
 	if (round_exception(str, precision))
 	{
 		if (!(out = (char *)malloc(sizeof(char) * ft_strlen(str) + 2)))
 			exit(-1);
-		out = ft_strdup("0");
+		out[0] = '0';
+		out[1] = 0;
 		out = ft_strjoin(out, str);
 	}
 	else
+	{
 		out = ft_strdup(str);
-	free(str); //скорей всего память не фришится
+	}
+	free(str);
 	if (precision == 0)
 		return (float_round_prec_0(out));
 	return (float_round(out, precision));
