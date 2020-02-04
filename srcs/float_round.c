@@ -15,7 +15,7 @@ char	*float_round_prec_0(char *str)
 	int		i;
 	int		carry;
 	int		sum;
-
+	char *temp = 0;
 	i = get_dot_pos(str);
 	carry = (str[i + 1] >= '5') ? 1 : 0;
 	while (--i >= 0)
@@ -32,7 +32,9 @@ char	*float_round_prec_0(char *str)
 			str[i] = sum + '0';
 		}
 	}
-	return (ft_strsub(str, 0, get_dot_pos(str)));
+	temp = ft_strsub(str, 0, get_dot_pos(str));
+	free(str);
+	return (temp);
 }
 
 int round_exception(char *str, int precision)
@@ -60,7 +62,7 @@ char	*float_round(char *str, int precision)
 	int		i;
 	int		carry;
 	int		sum;
-
+	char *r = 0;
 	i = get_dot_pos(str) + precision + 1;
 	carry = (str[i] >= '5') ? 1 : 0;
 	while (--i >= 0)
@@ -79,7 +81,9 @@ char	*float_round(char *str, int precision)
 			str[i] = sum + '0';
 		}
 	}
-	return (ft_strsub(str, 0, get_dot_pos(str) + precision + 1));
+	r = ft_strsub(str, 0, get_dot_pos(str) + precision + 1);
+	free(str);
+	return (r);
 }
 
 char	*float_round_wrapper(char *str, int precision)

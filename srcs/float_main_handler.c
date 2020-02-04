@@ -55,13 +55,14 @@ char *ft_ftoa(long double value, int afterpoint)
 void	return_function(char *s, t_printf *p)
 {
 	int		i;
-	char *res;
-	i = 0;
-	res = 0;
+	char res[512];
+	i = ft_strlen(s);
+	//res = 0;
+	res[i] = 0;
 	check_point(&s, p);
-		while (s[i] != '\0')
-			i++;
-		res = (char *)malloc(sizeof(char) * i);
+		//while (s[i] != '\0')
+			//i++;
+		//res = (char *)malloc(sizeof(char) * i);
 		while (--i >= 0)
 		{
 			res[p->i_res] = s[i];
@@ -74,8 +75,6 @@ void	return_function(char *s, t_printf *p)
 			p->inf_f = 1;
 		free(s);
 	preprint(res, p);
-	//if (res)
-		//free(res);
 }
 
 //главня функция
@@ -94,6 +93,7 @@ void	float_handler(t_printf *p)
 	if (value != value)
 	{
 		ret = ft_strdup("nan");
+		//ret = (char[4]){"nan\0"};
 		p->plus_f = 0;
 		p->space_f = 0;
 		p->zero = 0;
@@ -107,10 +107,12 @@ void	float_handler(t_printf *p)
 				p->inf_f = 1;			//check maybe this flag is useless?
 				p->zero = 0;
 				ret = ft_strdup("inf");
+				//ret = (char[4]){"inf\0"};
 			}
 		else if (value == (-1.0/0.0))
 			{
 				ret = ft_strdup("-inf");
+				//ret = (char[5]){"-inf\0"};
 				p->zero = 0;
 				p->inf_f = 1;			//check maybe this flag is useless?
 			}

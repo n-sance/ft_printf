@@ -44,7 +44,9 @@ void	preprint(char *res, t_printf *p)
 		p->space_f = 0;
 	if (!p->string_f && !p->char_f)
 		if (!(numbers_preprint(res, p)))
+		{
 			return ;
+		}
 	if (p->ptr_f == 1)
 		ptr_preprint(res, p);
 	if (p->prec_f && p->prec < p->i_res + 1 && p->string_f)
