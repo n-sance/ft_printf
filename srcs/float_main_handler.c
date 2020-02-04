@@ -3,7 +3,7 @@
 
 
 // Реверсирует строку из цифр после конвертации из int
-void reverse(unsigned char* str, int len)
+void	reverse(unsigned char* str, int len)
 {
     int i = 0, j = len - 1, temp;
     while (i < j) {
@@ -15,9 +15,7 @@ void reverse(unsigned char* str, int len)
     }
 }
 
-
-
-void			check_point(char **s, t_printf *p)
+void	check_point(char **s, t_printf *p)
 {
 	char		*tmp;
 
@@ -30,15 +28,20 @@ void			check_point(char **s, t_printf *p)
 	}
 }
 
-char *ft_ftoa(long double value, t_printf *p)
+char	*ft_ftoa(long double value, t_printf *p)
 {
-	int sign = 0;
-    char float_in_bits[80];
-	char *out = 0;
-    t_fl_to_str bytes;
-    char bits_in_byte_buffer[8];
-    int pos = 1;
-    int i = 0;
+	int					sign;
+    char				float_in_bits[80];
+	char 				*out;
+    t_fl_to_str			bytes;
+    char				bits_in_byte_buffer[8];
+	int					pos;
+	int					i;
+
+    pos = 1;
+    i = 0;
+	sign = 0;
+	out = 0;
     bytes.num = value;
     while(i < 10)
     {
