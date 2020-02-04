@@ -37,7 +37,7 @@ void	print_arg(char *res, t_printf *p)
 		p->i_buff++;
 		p->i_res--;
 	}
-	//if (!p->float_f)
-		//free(res);
-	//res = NULL;
+	if (!p->float_f)
+		free(res);
+	res = NULL;
 }

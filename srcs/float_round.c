@@ -10,7 +10,7 @@ int		get_dot_pos(char *str)
 	return (i);
 }
 
-char	*float_round_prec_0(char *str)
+char	*float_round_prec_0(char *str, int sharp_f)
 {
 	int		i;
 	int		carry;
@@ -32,7 +32,10 @@ char	*float_round_prec_0(char *str)
 			str[i] = sum + '0';
 		}
 	}
-	temp = ft_strsub(str, 0, get_dot_pos(str));
+	if (sharp_f)
+		temp = ft_strsub(str, 0, get_dot_pos(str) + 1);
+	else
+		temp = ft_strsub(str, 0, get_dot_pos(str));
 	free(str);
 	return (temp);
 }
@@ -86,7 +89,7 @@ char	*float_round(char *str, int precision)
 	return (r);
 }
 
-char	*float_round_wrapper(char *str, int precision)
+char	*float_round_wrapper(char *str, int precision, int sharp_f)
 {
 	char *out;
 	out = 0;
@@ -104,6 +107,6 @@ char	*float_round_wrapper(char *str, int precision)
 	}
 	free(str);
 	if (precision == 0)
-		return (float_round_prec_0(out));
+		return (float_round_prec_0(out, sharp_f));
 	return (float_round(out, precision));
 }

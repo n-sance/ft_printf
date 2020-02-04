@@ -30,7 +30,7 @@ void			check_point(char **s, t_printf *p)
 	}
 }
 
-char *ft_ftoa(long double value, int afterpoint)
+char *ft_ftoa(long double value, t_printf *p)
 {
 	int sign = 0;
     char float_in_bits[80];
@@ -48,21 +48,22 @@ char *ft_ftoa(long double value, int afterpoint)
         pos += 8;
     }
 	sign = float_in_bits[0] - '0';
-	out = float_round_wrapper(bits_to_str_of_num(sign, float_in_bits), afterpoint);
+	out = float_round_wrapper(bits_to_str_of_num(sign, float_in_bits), p->prec, p->sharp);
     return(out);
 }
 
 void	return_function(char *s, t_printf *p)
 {
 	int		i;
-	char res[512];
+	//char res[512];
+	char *res;
 	i = ft_strlen(s);
 	//res = 0;
-	res[i] = 0;
+	res = 0;
 	check_point(&s, p);
 		//while (s[i] != '\0')
 			//i++;
-		//res = (char *)malloc(sizeof(char) * i);
+		res = (char *)malloc(sizeof(char) * i);
 		while (--i >= 0)
 		{
 			res[p->i_res] = s[i];
@@ -111,14 +112,18 @@ void	float_handler(t_printf *p)
 			}
 		else if (value == (-1.0/0.0))
 			{
-				ret = ft_strdup("-inf");
-				//ret = (char[5]){"-inf\0"};
+				ret = (char *)malloc(sizeof(char) * 5);
+				ret[0] = '-';
+				ret[1] = 'i';
+				ret[2] = 'n';
+				ret[3] = 'f';
+				ret[4] = 0;
 				p->zero = 0;
 				p->inf_f = 1;			//check maybe this flag is useless?
 			}
 		else
 		{
-			ret = ft_ftoa(value, p->prec);
+			ret = ft_ftoa(value, p);
 			p->float_f = 1;
 		}
 	}
