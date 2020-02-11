@@ -166,5 +166,6 @@ void			check_point(char **s, t_printf *p);
 int round_exception(char *str, int precision);
 void	copy_bits_from_byte(char *bits_from_byte, char *bits, int pos);
 void	byte_to_bits(char byte, char *bits_from_byte);
-
+char *nan_and_inf_handler(t_printf *p, long double value);
+void flat_around_handler(int i, char *str, int carry);
 #endif

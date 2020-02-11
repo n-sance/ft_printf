@@ -44,6 +44,7 @@ int round_exception(char *str, int precision)
 {
 	int i;
 	int a;
+
 	i = 0;
 	while (str[i] && str[i] != '.')
 		if (str[i] == '9')
@@ -60,14 +61,11 @@ int round_exception(char *str, int precision)
 	return(1);
 }
 
-char	*float_round(char *str, int precision)
+void flat_around_handler(int i, char *str, int carry)
 {
-	int		i;
-	int		carry;
 	int		sum;
-	char *r = 0;
-	i = get_dot_pos(str) + precision + 1;
-	carry = (str[i] >= '5') ? 1 : 0;
+
+	sum = 0;
 	while (--i >= 0)
 	{
 		if (str[i] == '.')
@@ -84,6 +82,18 @@ char	*float_round(char *str, int precision)
 			str[i] = sum + '0';
 		}
 	}
+}
+
+
+char	*float_round(char *str, int precision)
+{
+	int		i;
+	int		carry;
+
+	char *r = 0;
+	i = get_dot_pos(str) + precision + 1;
+	carry = (str[i] >= '5') ? 1 : 0;
+	flat_around_handler(i, str, carry);
 	r = ft_strsub(str, 0, get_dot_pos(str) + precision + 1);
 	free(str);
 	return (r);
@@ -92,6 +102,7 @@ char	*float_round(char *str, int precision)
 char	*float_round_wrapper(char *str, int precision, int sharp_f)
 {
 	char *out;
+
 	out = 0;
 	if (round_exception(str, precision))
 	{

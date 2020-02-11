@@ -1,6 +1,5 @@
 #include "ft_printf.h"
 
-
 void	bits_to_epf(char *bits, t_ld_epf *epf)
 {
 	epf->sign = bits[0];

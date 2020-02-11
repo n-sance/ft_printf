@@ -1,20 +1,5 @@
 #include "ft_printf.h"
 
-
-
-// Реверсирует строку из цифр после конвертации из int
-void	reverse(unsigned char* str, int len)
-{
-    int i = 0, j = len - 1, temp;
-    while (i < j) {
-        temp = str[i];
-        str[i] = str[j];
-        str[j] = temp;
-        i++;
-        j--;
-    }
-}
-
 void	check_point(char **s, t_printf *p)
 {
 	char		*tmp;
@@ -58,38 +43,34 @@ char	*ft_ftoa(long double value, t_printf *p)
 void	return_function(char *s, t_printf *p)
 {
 	int		i;
-	//char res[512];
 	char *res;
+
 	i = ft_strlen(s);
-	//res = 0;
 	res = 0;
 	check_point(&s, p);
-		//while (s[i] != '\0')
-			//i++;
-		res = (char *)malloc(sizeof(char) * i);
-		while (--i >= 0)
-		{
-			res[p->i_res] = s[i];
-			p->i_res++;
-		}
-		p->i_res--;
-		if (res[p->i_res] == 'n')
-			p->nan_f = 1;
-		if (res[p->i_res] == 'i' || res[p->i_res - 1] == 'i')
-			p->inf_f = 1;
-		free(s);
+	res = (char *)malloc(sizeof(char) * i);
+	while (--i >= 0)
+	{
+		res[p->i_res] = s[i];
+		p->i_res++;
+	}
+	p->i_res--;
+	if (res[p->i_res] == 'n')
+		p->nan_f = 1;
+	if (res[p->i_res] == 'i' || res[p->i_res - 1] == 'i')
+		p->inf_f = 1;
+	free(s);
 	preprint(res, p);
 }
 
-//главня функция
 void	float_handler(t_printf *p)
 {
 	char *ret;
-	long double value; //число которое переводим
-	int precise; //точность
+	long double value;
+	int precise;
+
 	ret = 0;
     precise = 6;
-	//если есть L то ждем переменную long double, если нет то double
 	if (p->length_capital_l)
 		value = va_arg(p->ap, long double);
 	else
@@ -97,39 +78,39 @@ void	float_handler(t_printf *p)
 	if (value != value)
 	{
 		ret = ft_strdup("nan");
-		//ret = (char[4]){"nan\0"};
 		p->plus_f = 0;
 		p->space_f = 0;
 		p->zero = 0;
 	}
 	else
-	{
-		if(!p->prec_f)
-			p->prec = 6;
-		if (value == (1.0 /0.0))
-			{
-				p->inf_f = 1;			//check maybe this flag is useless?
-				p->zero = 0;
-				ret = ft_strdup("inf");
-				//ret = (char[4]){"inf\0"};
-			}
-		else if (value == (-1.0/0.0))
-			{
-				ret = (char *)malloc(sizeof(char) * 5);
-				ret[0] = '-';
-				ret[1] = 'i';
-				ret[2] = 'n';
-				ret[3] = 'f';
-				ret[4] = 0;
-				p->zero = 0;
-				p->inf_f = 1;			//check maybe this flag is useless?
-			}
-		else
+		ret = nan_and_inf_handler(p, value);
+	return_function(ret, p);
+	p->spec_found = 1;
+}
+
+char *nan_and_inf_handler(t_printf *p, long double value)
+{
+	char *ret;
+
+	ret = 0;
+	if(!p->prec_f)
+	p->prec = 6;
+	if (value == (1.0 /0.0))
 		{
-			ret = ft_ftoa(value, p);
-			p->float_f = 1;
+			p->inf_f = 1;
+			p->zero = 0;
+			ret = ft_strdup("inf");
 		}
+	else if (value == (-1.0/0.0))
+		{
+			ret = ft_strdup("-inf");
+			p->zero = 0;
+			p->inf_f = 1;
+		}
+	else
+	{
+		ret = ft_ftoa(value, p);
+		p->float_f = 1;
 	}
-		return_function(ret, p);
-		p->spec_found = 1;
+	return(ret);
 }

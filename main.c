@@ -26,7 +26,8 @@ int main(int argc, char **argv)
 
 
 
-    //ft_printf("%15.1f|%15.2f|%15.5f|%15.12f", 999.99999, 999.99999, 999.99999, 999.99999);
+    ft_printf("%.1150f|%.1150f|%.1150f|%.1150f\n", 0x1p-1074, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
+   //printf("%.1150f|%.1150f|%.1150f|%.1150f", 0x1p-1074, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
     //printf("%15.8f|%-15.8f|%+15.8f|% 15.8f|%#15.8f|%014.8f\n\n", DBL_MIN, DBL_MIN, DBL_MIN, DBL_MIN, DBL_MIN, DBL_MIN);
     //ft_printf("%.214748364f", 1.0, 1.0);
    // printf("%.2147483649f\n", 1.0);
@@ -39,14 +40,7 @@ int main(int argc, char **argv)
    // printf("%.lf|%-.lf|%+.lf|% .lf|%#.lf|%0.lf", 38546.5849, 38546.5849, 38546.5849, 38546.5849, 38546.5849, 38546.5849);
     //ft_printf("%15.1f", 456.677);
     //printf("%f|%-f|%+f|% f|%#f|%0f", 0., 0., 0., 0., 0., 0.);
-    printf("%*d\n", 5, 42);
-    ft_printf("%*d\n\n", 5, 42);
-
-    printf("%*.*d\n", 0, 3, 0);
-    ft_printf("%*.*d\n\n", 0, 3, 0);
-
-    printf("{%*3d}\n", 5, 0);
-    printf("{%*3d}\n\n", 5, 0);
+    //ft_printf("%5f|%-5f|%+5f|% 5f|%#5f|%05f", -INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY);
     return(0);
 }
 

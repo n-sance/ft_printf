@@ -10,69 +10,46 @@ OBJ_DIR =	obj/
 SRC_DIR =	srcs/
 LIB_DIR =	libft/
 
-CFILE = ft_printf.c 					\
-		cast.c 							\
-		buffer_print.c 					\
-		dioux.c 						\
-		flags_sp_s_o_p_cl.c 			\
-		flags_unk_c_h_sh_po.c 			\
-		flags_unk_c_h_sh_po.c 			\
-		flags_x_u_i_l.c                 \
-		plus_minus_zero_space_sharp.c 	\
-		preparation.c 					\
-		preprint_processing.c 			\
-		width_prec.c 					\
-		parser.c 						\
-		float_calculations.c			\
-		float_epf.c 					\
-		float_conversions.c 			\
-		float_get.c 					\
-		float_strings.c 				\
-		float_main_handler.c 			\
-		float_main_handler_2.c 			\
-		float_round.c 					\
-		float_strings_2.c				\
-		float_bits_handle.c				\
-
-CFIND =		$(CFILE:%=$(SRC_DIR)%)
+CFILE = $(SRC_DIR)ft_printf.c 				\
+		$(SRC_DIR)cast.c 							\
+		$(SRC_DIR)buffer_print.c 					\
+		$(SRC_DIR)dioux.c 						\
+		$(SRC_DIR)flags_sp_s_o_p_cl.c 			\
+		$(SRC_DIR)flags_unk_c_h_sh_po.c 			\
+		$(SRC_DIR)flags_unk_c_h_sh_po.c 			\
+		$(SRC_DIR)flags_x_u_i_l.c                 \
+		$(SRC_DIR)plus_minus_zero_space_sharp.c 	\
+		$(SRC_DIR)preparation.c 					\
+		$(SRC_DIR)preprint_processing.c 			\
+		$(SRC_DIR)width_prec.c 					\
+		$(SRC_DIR)parser.c 						\
+		$(SRC_DIR)float_calculations.c			\
+		$(SRC_DIR)float_epf.c 					\
+		$(SRC_DIR)float_conversions.c 			\
+		$(SRC_DIR)float_get.c 					\
+		$(SRC_DIR)float_strings.c 				\
+		$(SRC_DIR)float_main_handler.c 			\
+		$(SRC_DIR)float_main_handler_2.c 			\
+		$(SRC_DIR)float_round.c 					\
+		$(SRC_DIR)float_strings_2.c				\
+		$(SRC_DIR)float_bits_handle.c				\
 
 OFILE =		$(CFILE:%.c=%.o)
 
-OBJ =		$(addprefix $(OBJ_DIR), $(OFILE))
+all: $(NAME)
 
-all: $(OBJ_DIR) $(NAME)
-
-$(OBJ_DIR):
-		@mkdir -p $(OBJ_DIR)
-		@echo Create: ft_printf Object directory
-
-$(NAME): $(OBJ)
+$(NAME):
 		@echo LIBFT START
-		@make -C $(LIB_DIR)
-		@echo Copying $(LIBFT_A) to root.
-		@cp $(LIB_DIR)$(LIBFT_A) .
-		@mv $(LIBFT_A) $(NAME)
-		@ar rc $(NAME) $(addprefix $(OBJ_DIR), $(OFILE))
-		@ranlib $(NAME)
-		@echo Merged: $(NAME) with $(LIBFT_A)
+		gcc -g -c -Wall -Werror -Wextra libft/*.c -I libft/includes
+		gcc -g -c $(CFILE) -I includes
+		ar rc $(NAME) *.o
 		@echo FT_PRINTF COMPLETE
 
-$(OBJ): $(CFIND)
-		@$(MAKE) $(OFILE)
-
-$(OFILE):
-		@echo Create: $(@:obj/%=%)
-		@$(COMP) $(OBJ_DIR)$@ $(SRC_DIR)$(@:%.o=%.c)
-
 clean:
-		@/bin/rm -rf $(OBJ_DIR)
-		@make -C $(LIB_DIR) clean
-		@echo Cleaned ft_printf object files
+		@rm -rf *.o libft/*.o
 
 fclean: clean
-		@/bin/rm -f $(NAME)
-		@make -C $(LIB_DIR) fclean
-		@echo Cleaned $(NAME)
+		@rm -rf $(NAME)
 
 re: fclean all
 

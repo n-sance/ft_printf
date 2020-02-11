@@ -27,3 +27,20 @@ char	*concat_parts(char *integer_part, char *fract_part, char sign)
 	return (numstr);
 }
 
+void	reverse(unsigned char* str, int len)
+{
+    int i = 0;
+	int j = len - 1;
+	int temp;
+
+	i = 0;
+	j = len - 1;
+	temp = 0;
+    while (i < j) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
