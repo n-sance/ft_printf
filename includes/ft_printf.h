@@ -6,7 +6,7 @@
 /*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 20:59:20 by nsance            #+#    #+#             */
-/*   Updated: 2020/02/12 21:02:59 by nsance           ###   ########.fr       */
+/*   Updated: 2020/02/12 21:17:35 by nsance           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void				copy_bits_from_byte(char *bits_from_b, char *bits, int pos);
 void				byte_to_bits(char byte, char *bits_from_byte);
 char				*nan_and_inf_handler(t_printf *p, long double value);
 void				flat_around_handler(int i, char *str, int carry);
-char				*fl_round_pr_0_handle(int i, char *str);
+void				fl_round_pr_0_handle(int i, char *str);
 char				*float_round(char *str, int precision);
 int					get_dot_pos(char *str);
 void				ftoa_handler(t_fl_to_str bytes, char *f_in_bits);

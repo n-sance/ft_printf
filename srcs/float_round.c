@@ -6,7 +6,7 @@
 /*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:15:44 by nsance            #+#    #+#             */
-/*   Updated: 2020/02/12 20:37:41 by nsance           ###   ########.fr       */
+/*   Updated: 2020/02/12 21:17:15 by nsance           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*float_round_prec_0(char *str, int sharp_f)
 	return (temp);
 }
 
-char	*fl_round_pr_0_handle(int i, char *str)
+void	fl_round_pr_0_handle(int i, char *str)
 {
 	int sum;
 	int carry;
