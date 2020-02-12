@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 02:20:27 by pcarolei          #+#    #+#             */
-/*   Updated: 2020/01/20 17:37:33 by admin            ###   ########.fr       */
+/*   Updated: 2020/02/12 20:57:50 by nsance           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define MAX(a, b) (((a) > (b))? (a) : (b))
-# define MIN(a, b) (((a) < (b))? (a) : (b))
-# define ABS(x) ( ( (x) < 0) ? (-x) : (x) )
-# define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
-# define UNUSED(x) (void)(x)
-
 # define BUFF_SIZE 2048
-# define NODE (find_node_by_fd(fd, fd_list))
 
 typedef struct	s_list
 {
@@ -104,5 +97,7 @@ int				ft_lst_get_length(t_list *lst);
 void			*ft_memrchr(const void *s, int c, size_t n);
 int				ft_isspace(char c);
 char			*ft_strtrimc(char const *s, char c);
+int				ft_abs(int a);
+int				ft_max(int a, int b);
 
 #endif

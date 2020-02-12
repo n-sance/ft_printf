@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarolei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 02:39:19 by pcarolei          #+#    #+#             */
-/*   Updated: 2019/04/11 02:43:59 by pcarolei         ###   ########.fr       */
+/*   Updated: 2020/02/12 20:49:58 by nsance           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	return (ft_strncmp(s1, s2, MAX(ft_strlen(s1), ft_strlen(s2))));
+	return (ft_strncmp(s1, s2, ft_max(ft_strlen(s1), ft_strlen(s2))));
 }

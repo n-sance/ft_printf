@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_epf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:19 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 20:42:28 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	epf_free(t_ld_epf *epf)
@@ -7,7 +19,6 @@ void	epf_free(t_ld_epf *epf)
 	if (epf->fract_part_bin)
 		free(epf->fract_part_bin);
 }
-
 
 char	*epf_to_numstr(t_ld_epf *epf)
 {
@@ -56,16 +67,15 @@ char	*epf_to_fract_part(t_ld_epf *epf)
 	{
 		if (epf->fract_part_bin[i] == '1')
 		{
-			add = power_of_5(ABS(epf->exp_dec) + i);
+			add = power_of_5(ft_abs(epf->exp_dec) + i);
 			add = mult_by_10_n_times(add, len - 1 - i);
 			fract_part = bignum_sum(add, fract_part);
-			last = ABS(epf->exp_dec) + i;
+			last = ft_abs(epf->exp_dec) + i;
 		}
 		i++;
 	}
 	return (prepend_zeroes(fract_part, last));
 }
-
 
 char	*prepend_zeroes(char *str, int last)
 {

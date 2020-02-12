@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_strings.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:52 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 21:02:33 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char	*concat_parts(char *integer_part, char *fract_part, char sign)
+char	*concat_parts(char *int_part, char *fract_part, char sign)
 {
 	char	*numstr;
 	int		i;
 	int		j;
 
-	if (!(numstr = (char *)malloc(ft_strlen(integer_part) +
+	if (!(numstr = (char *)malloc(ft_strlen(int_part) +
 									ft_strlen(fract_part) + 2)))
 		return (NULL);
 	i = 0;
-	while (integer_part[i])
+	while (int_part[i])
 	{
-		numstr[i] = integer_part[i];
+		numstr[i] = int_part[i];
 		i++;
 	}
 	numstr[i++] = '.';
@@ -22,25 +34,26 @@ char	*concat_parts(char *integer_part, char *fract_part, char sign)
 	numstr[i + j] = '\0';
 	if (sign == '1')
 		numstr = prepend_minus(numstr);
-	free(integer_part);
+	free(int_part);
 	free(fract_part);
 	return (numstr);
 }
 
-void	reverse(unsigned char* str, int len)
+void	reverse(unsigned char *str, int len)
 {
-    int i = 0;
-	int j = len - 1;
+	int i;
+	int j;
 	int temp;
 
 	i = 0;
 	j = len - 1;
 	temp = 0;
-    while (i < j) {
-        temp = str[i];
-        str[i] = str[j];
-        str[j] = temp;
-        i++;
-        j--;
-    }
+	while (i < j)
+	{
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+		i++;
+		j--;
+	}
 }

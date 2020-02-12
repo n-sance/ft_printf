@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_main_handler.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:40 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 20:37:05 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	check_point(char **s, t_printf *p)
@@ -16,34 +28,24 @@ void	check_point(char **s, t_printf *p)
 char	*ft_ftoa(long double value, t_printf *p)
 {
 	int					sign;
-    char				float_in_bits[80];
-	char 				*out;
-    t_fl_to_str			bytes;
-    char				bits_in_byte_buffer[8];
-	int					pos;
-	int					i;
+	char				f_in_bits[80];
+	char				*out;
+	t_fl_to_str			bytes;
 
-    pos = 1;
-    i = 0;
 	sign = 0;
 	out = 0;
-    bytes.num = value;
-    while(i < 10)
-    {
-        byte_to_bits(bytes.str[i], bits_in_byte_buffer);
-        copy_bits_from_byte(bits_in_byte_buffer, float_in_bits, pos);
-        i++;
-        pos += 8;
-    }
-	sign = float_in_bits[0] - '0';
-	out = float_round_wrapper(bits_to_str_of_num(sign, float_in_bits), p->prec, p->sharp);
-    return(out);
+	bytes.num = value;
+	ftoa_handler(bytes, f_in_bits);
+	sign = f_in_bits[0] - '0';
+	out = float_round_wrapper(bits_to_str_of_num(sign, f_in_bits),
+	p->prec, p->sharp);
+	return (out);
 }
 
 void	return_function(char *s, t_printf *p)
 {
 	int		i;
-	char *res;
+	char	*res;
 
 	i = ft_strlen(s);
 	res = 0;
@@ -65,12 +67,12 @@ void	return_function(char *s, t_printf *p)
 
 void	float_handler(t_printf *p)
 {
-	char *ret;
-	long double value;
-	int precise;
+	char			*ret;
+	long double		value;
+	int				precise;
 
 	ret = 0;
-    precise = 6;
+	precise = 6;
 	if (p->length_capital_l)
 		value = va_arg(p->ap, long double);
 	else
@@ -88,29 +90,29 @@ void	float_handler(t_printf *p)
 	p->spec_found = 1;
 }
 
-char *nan_and_inf_handler(t_printf *p, long double value)
+char	*nan_and_inf_handler(t_printf *p, long double value)
 {
 	char *ret;
 
 	ret = 0;
-	if(!p->prec_f)
-	p->prec = 6;
-	if (value == (1.0 /0.0))
-		{
-			p->inf_f = 1;
-			p->zero = 0;
-			ret = ft_strdup("inf");
-		}
-	else if (value == (-1.0/0.0))
-		{
-			ret = ft_strdup("-inf");
-			p->zero = 0;
-			p->inf_f = 1;
-		}
+	if (!p->prec_f)
+		p->prec = 6;
+	if (value == (1.0 / 0.0))
+	{
+		p->inf_f = 1;
+		p->zero = 0;
+		ret = ft_strdup("inf");
+	}
+	else if (value == (-1.0 / 0.0))
+	{
+		ret = ft_strdup("-inf");
+		p->zero = 0;
+		p->inf_f = 1;
+	}
 	else
 	{
 		ret = ft_ftoa(value, p);
 		p->float_f = 1;
 	}
-	return(ret);
+	return (ret);
 }

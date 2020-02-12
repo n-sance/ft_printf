@@ -1,5 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_calculations.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:08 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 19:35:52 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 char	*power_of_2(int n)
 {
@@ -34,7 +45,6 @@ char	*power_of_5(int n)
 	}
 	return (res);
 }
-
 
 char	*mult_by_10_n_times(char *num, int n)
 {

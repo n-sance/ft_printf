@@ -1,5 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_get.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:26 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 19:40:06 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 void	get_integer_part_bin(t_ld_epf *epf)
 {
@@ -23,7 +34,6 @@ void	get_integer_part_bin(t_ld_epf *epf)
 	epf->integer_part_bin[i] = '\0';
 }
 
-
 void	get_fract_part_bin(t_ld_epf *epf)
 {
 	int	integer_part_bin_size;
@@ -43,7 +53,6 @@ void	get_fract_part_bin(t_ld_epf *epf)
 	epf->fract_part_bin[i] = '\0';
 }
 
-
 void	get_exponent_from_bits(char *bits, char *exp)
 {
 	int	i;
@@ -56,7 +65,6 @@ void	get_exponent_from_bits(char *bits, char *exp)
 	}
 }
 
-
 void	get_mantissa_from_bits(char *bits, char *mnt)
 {
 	int	i;
@@ -68,7 +76,6 @@ void	get_mantissa_from_bits(char *bits, char *mnt)
 		i++;
 	}
 }
-
 
 void	get_decimal_exponent(t_ld_epf *epf)
 {

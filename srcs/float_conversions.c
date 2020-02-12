@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_conversions.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:14 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 19:39:09 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	bits_to_epf(char *bits, t_ld_epf *epf)
@@ -10,10 +22,9 @@ void	bits_to_epf(char *bits, t_ld_epf *epf)
 	get_fract_part_bin(epf);
 }
 
-
-char *bits_to_str_of_num(int sign, char *bits)
+char	*bits_to_str_of_num(int sign, char *bits)
 {
-    t_ld_epf	epf;
+	t_ld_epf	epf;
 	char		*numstr;
 
 	bits_to_epf(bits, &epf);
@@ -21,7 +32,6 @@ char *bits_to_str_of_num(int sign, char *bits)
 	numstr = epf_to_numstr(&epf);
 	epf_free(&epf);
 	return (numstr);
-
 }
 
 char	*str_from_char(char c)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_bits_handle.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:00 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 21:03:10 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	byte_to_bits(char byte, char *bits_from_byte)
@@ -12,14 +24,14 @@ void	byte_to_bits(char byte, char *bits_from_byte)
 	}
 }
 
-void	copy_bits_from_byte(char *bits_from_byte, char *bits, int pos)
+void	copy_bits_from_byte(char *bits_from_b, char *bits, int pos)
 {
 	int	i;
 
 	i = 0;
 	while (i < 8)
 	{
-		bits[80 - pos - i] = bits_from_byte[i];
+		bits[80 - pos - i] = bits_from_b[i];
 		i++;
 	}
 }

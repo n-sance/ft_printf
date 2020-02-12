@@ -33,6 +33,7 @@ CFILE = $(SRC_DIR)ft_printf.c 				\
 		$(SRC_DIR)float_round.c 					\
 		$(SRC_DIR)float_strings_2.c				\
 		$(SRC_DIR)float_bits_handle.c				\
+		$(SRC_DIR)float_get_round.c
 
 OFILE =		$(CFILE:%.c=%.o)
 

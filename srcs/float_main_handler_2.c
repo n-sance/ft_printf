@@ -1,5 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_main_handler_2.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsance <nsance@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 19:15:35 by nsance            #+#    #+#             */
+/*   Updated: 2020/02/12 20:34:22 by nsance           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 char	*bignum_sum(char *num1, char *num2)
 {
@@ -53,3 +64,19 @@ int		count_without_postfix_zeroes(char *str)
 	return (len - zeroes_cnt);
 }
 
+void	ftoa_handler(t_fl_to_str bytes, char *f_in_bits)
+{
+	char	bits_in_byte_buffer[8];
+	int		pos;
+	int		i;
+
+	pos = 1;
+	i = 0;
+	while (i < 10)
+	{
+		byte_to_bits(bytes.str[i], bits_in_byte_buffer);
+		copy_bits_from_byte(bits_in_byte_buffer, f_in_bits, pos);
+		i++;
+		pos += 8;
+	}
+}
